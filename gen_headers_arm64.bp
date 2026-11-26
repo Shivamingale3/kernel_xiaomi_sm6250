@@ -997,7 +997,10 @@ genrule {
 
 genrule {
     name: "qti_generate_kernel_headers_arm64",
-    tools: ["headers_install.sh"],
+    tools: [
+        "headers_install.sh",
+        "unifdef",
+    ],
     tool_files: [
         "kernel_headers.py",
     ],
@@ -1006,7 +1009,8 @@ genrule {
         ":qti_generate_gen_headers_arm64",
     ],
     exclude_srcs: gen_headers_exclude_srcs_arm64,
-    cmd: "python3 $(location kernel_headers.py) " +
+    cmd: "export LOC_UNIFDEF=$(location unifdef) && " +
+        "python3 $(location kernel_headers.py) " +
         kernel_headers_verbose +
         "--header_arch arm64 " +
         "--gen_dir $(genDir) " +
