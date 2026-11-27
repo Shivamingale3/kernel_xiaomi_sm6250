@@ -24,6 +24,7 @@ gen_headers_out_arm = [
 
     // Matching generic-y:
 
+    "asm/bpf_perf_event.h",
     "asm/bitsperlong.h",
     "asm/errno.h",
     "asm/ioctl.h",
