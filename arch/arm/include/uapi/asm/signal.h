@@ -96,7 +96,13 @@ typedef unsigned long sigset_t;
 #ifndef __KERNEL__
 /* Here we must cater to libcs that poke about in kernel headers.  */
 
+/* bionic declares its own POSIX struct sigaction; its copy of these
+ * headers renames the kernel one, so do the same when built for Android. */
+#ifdef __BIONIC__
+struct __kernel_sigaction {
+#else
 struct sigaction {
+#endif
 	union {
 	  __sighandler_t _sa_handler;
 	  void (*_sa_sigaction)(int, struct siginfo *, void *);
